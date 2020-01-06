@@ -28,7 +28,7 @@
                 <h2 class="text-center" style="color: rgb(40,167,69);">Welcome to Quizer!</h2>
                 <p class="text-center">Redifining the quiz taking mechanism by breaching the barriers of boundries of your educational institute. Upload a quiz, attempt a quiz where ever and whenever you want, Quizer will be there for you ;)&nbsp;</p>
             </div>
-            <div class="buttons"><a class="btn btn-primary" role="button" href="#">Register as an instructor</a><button class="btn btn-light" type="button"><strong>REGISTER AS A student</strong><br></button></div>
+            <div class="buttons"><a class="btn btn-primary" role="button" href="signup.jsp">Register as an instructor</a><a role="button" class="btn btn-light" href="sign.jsp" type="button"><strong>REGISTER AS A student</strong><br></a></div>
         </div>
         <hr>
     </div>

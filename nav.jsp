@@ -68,7 +68,7 @@
             <a class="nav-link" href="QuizList">Attempt Quiz</a>
             </li>
             <li class="nav-item" role="presentation"
-              ><a class="nav-link" href="#">About</a></li
+              ><a class="nav-link" href="about.jsp">About</a></li
             > </ul
           ><span class="navbar-text actions">
             <a class="login" href="Logout">Log out</a>
@@ -103,10 +103,10 @@
               ><a class="nav-link" href="makeQuiz.jsp">Upload Quiz</a></li
             >
             <li class="nav-item" role="presentation"
-              ><a class="nav-link" href="makeQuiz.jsp">About</a></li
+              ><a class="nav-link" href="Stats">Stats</a></li
             >
             <li class="nav-item" role="presentation"
-              ><a class="nav-link" href="Stats">Stats</a></li
+              ><a class="nav-link" href="about.jsp">About</a></li
             >
              </ul
           ><span class="navbar-text actions">
@@ -139,10 +139,10 @@
         <div class="collapse navbar-collapse" id="navcol-1">
           <ul class="nav navbar-nav mr-auto">
             <li class="nav-item" role="presentation"
-              ><a class="nav-link active" href="#">Get Started</a></li
+              ><a class="nav-link active" href="log.jsp">Get Started</a></li
             >
             <li class="nav-item" role="presentation"
-              ><a class="nav-link" href="#">About</a></li
+              ><a class="nav-link" href="about.jsp">About</a></li
             > </ul
           ><span class="navbar-text actions">
             <a class="login" href="./login.jsp">Log In</a
