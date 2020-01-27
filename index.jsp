@@ -4,10 +4,15 @@
 
     if (session.getAttribute("isStudent") == null && session.getAttribute("isInstructor") == null && session.getAttribute("loggedIn") == null ) {  
         boolean isStudent = false;
-        boolean isInstructor = false;    
+        boolean isInstructor = false;  
     } else {        
         boolean isStudent = (boolean)session.getAttribute("isStudent"); 
         boolean isInstructor = (boolean)session.getAttribute("isInstructor");
+    }
+
+    if(session.getAttribute("loggedIn") == null ) {
+    } else {
+        boolean isStudent = (boolean)session.getAttribute("loggedIn"); 
     }
 
 %>

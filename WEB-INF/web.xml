@@ -114,4 +114,57 @@
         <url-pattern>/DeleteQuiz</url-pattern>
     </servlet-mapping>
 
+     <servlet>
+        <servlet-name>EditQuiz</servlet-name>
+        <servlet-class>EditQuiz</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditQuiz</servlet-name>
+        <url-pattern>/EditQuiz</url-pattern>
+    </servlet-mapping>
+
+
+     <servlet>
+        <servlet-name>DeleteQuestion</servlet-name>
+        <servlet-class>DeleteQuestion</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteQuestion</servlet-name>
+        <url-pattern>/DeleteQuestion</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditAddAnotherQuestion</servlet-name>
+        <servlet-class>EditAddAnotherQuestion</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditAddAnotherQuestion</servlet-name>
+        <url-pattern>/EditAddAnotherQuestion</url-pattern>
+    </servlet-mapping>
+
+
+        <servlet>
+        <servlet-name>Validate</servlet-name>
+        <servlet-class>Validate</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Validate</servlet-name>
+        <url-pattern>/Validate</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>CheckUsername</servlet-name>
+        <servlet-class>CheckUsername</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CheckUsername</servlet-name>
+        <url-pattern>/CheckUsername</url-pattern>
+    </servlet-mapping>
+
 </web-app>

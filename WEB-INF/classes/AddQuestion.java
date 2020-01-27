@@ -7,6 +7,21 @@ import javax.servlet.*;
 
 @SuppressWarnings("unchecked")
 public class AddQuestion extends HttpServlet {
+
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        PrintWriter out = res.getWriter();
+        HttpSession session = req.getSession();
+
+        boolean isLoggedIn = (boolean) session.getAttribute("loggedIn");
+
+        if (!isLoggedIn) {
+            String redirectURL = "invalidUser.jsp";
+            res.sendRedirect("invalidUser.jsp");
+        }
+
+    }
+
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         PrintWriter out = res.getWriter();
 
@@ -36,20 +51,19 @@ public class AddQuestion extends HttpServlet {
         String correctOpt = req.getParameter("correctAnswer");
 
         Question newQ = new Question(questionStatement, option1, option2, option3, option4, correctOpt);
-        // if (questionStatement != null && option2 != null && option3 != null && option4 != null) {
+        // if (questionStatement != null && option2 != null && option3 != null &&
+        // option4 != null) {
         questions.add(newQ);
         // }
 
         boolean flag;
-        
+
         flag = (boolean) session.getAttribute("quizNameAdded");
-        
+
         if (!flag) {
             session.setAttribute("quizName", quizName);
             session.setAttribute("quizNameAdded", true);
         }
-        
-        
 
         session.setAttribute("questionList", questions);
 

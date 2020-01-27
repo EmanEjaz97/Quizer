@@ -99,7 +99,7 @@
                 <form action="DeleteQuiz" method="post" style="display:inline;">
                     <input type ="hidden" name="temp" value="<c:out value='${tempQuiz.quizId}'/>">
                     <input type ="hidden" name="qName" value="<c:out value='${tempQuiz.quizName}'/>">
-                    
+                    <a class='btn btn-info btn-xs' href="EditQuiz?quizId=${tempQuiz.quizId}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                     <button class='btn btn-danger btn-xs' type="submit">Delete</button>
                 </form>   
                 </td>

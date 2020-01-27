@@ -6,6 +6,21 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 
 public class Login extends HttpServlet {
+
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        PrintWriter out = res.getWriter();
+        HttpSession session = req.getSession();
+
+        boolean isLoggedIn = (boolean) session.getAttribute("loggedIn");
+
+        if (!isLoggedIn) {
+            String redirectURL = "invalidUser.jsp";
+            res.sendRedirect("invalidUser.jsp");
+        }
+
+    }
+
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         HttpSession session = req.getSession(false);
@@ -21,9 +36,9 @@ public class Login extends HttpServlet {
 
             Statement st = con.createStatement();
 
-            String query, email, password;
+            String query, Username, password;
 
-            email = req.getParameter("email");
+            Username = req.getParameter("username");
             password = req.getParameter("password");
 
             query = "SELECT * FROM student";
@@ -31,12 +46,12 @@ public class Login extends HttpServlet {
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                String email2 = rs.getString(2);
+                String username2 = rs.getString("username");
                 String pass = rs.getString(3);
                 int studentId = rs.getInt(4);
                 username = rs.getString(1);
 
-                if (email2.equals(email) && pass.equals(password)) {
+                if (username2.equals(username) && pass.equals(password)) {
                     session.setAttribute("loggedIn", true);
                     session.setAttribute("isStudent", true);
 
@@ -52,13 +67,13 @@ public class Login extends HttpServlet {
             rs = st.executeQuery(query);
 
             while (rs.next()) {
-                String email2 = rs.getString(3);
+                String instName = rs.getString("teacherName");
                 String pass = rs.getString(4);
                 int instructorId = rs.getInt(1);
 
                 username = rs.getString(2);
 
-                if (email2.equals(email) && pass.equals(password)) {
+                if (instName.equals(Username) && pass.equals(password)) {
                     session.setAttribute("loggedIn", true);
                     session.setAttribute("isInstructor", true);
 
@@ -71,8 +86,6 @@ public class Login extends HttpServlet {
             }
 
             out.println("Invalid Credentials");
-            out.println(email);
-            out.println(password);
 
         } catch (Exception e) {
             out.println(e);

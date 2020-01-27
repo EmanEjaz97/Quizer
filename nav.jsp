@@ -9,6 +9,8 @@
     session.setAttribute("quizNameAdded", false);
     session.setAttribute("quizUploaded", false);
     session.setAttribute("questionList", null);
+    
+
 
 
 
@@ -18,6 +20,7 @@
   
     } 
 	else {
+		boolean loggedIn = (boolean)session.getAttribute("loggedIn"); 
 
 	}
 		 
@@ -139,7 +142,7 @@
         <div class="collapse navbar-collapse" id="navcol-1">
           <ul class="nav navbar-nav mr-auto">
             <li class="nav-item" role="presentation"
-              ><a class="nav-link active" href="log.jsp">Get Started</a></li
+              ><a class="nav-link" href="login.jsp">Get Started</a></li
             >
             <li class="nav-item" role="presentation"
               ><a class="nav-link" href="about.jsp">About</a></li

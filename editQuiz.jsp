@@ -3,8 +3,10 @@
 <%@ page import="java.util.* , quizer.*" %>
 
 <%
-  String temporary = request.getParameter("temp");
+  String temporary = request.getParameter("quizId");
   int quizId = Integer.parseInt(temporary);
+
+
 
   boolean isLoggedIn = (boolean) session.getAttribute("loggedIn");
 
@@ -12,7 +14,7 @@
      String redirectURL = "invalidUser.jsp";
     response.sendRedirect(redirectURL);
   }
-
+    String temp = "";
 %>
 
 
@@ -26,8 +28,9 @@
     />
     <title>Attempt Quiz</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/abcd.css" />
+    <link rel="stylesheet" href="assets/css/tableForm.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    
 
     <link
       rel="stylesheet"
@@ -43,9 +46,9 @@
 
     <div class="contact-clean" style="margin-top: -60px;">
           <c:set var="secCount" value="1" scope="page" />
-     <form onsubmit="return _handleSubmit();" style="margin-top: -10px;">
-      <h2 style="margin-top: -30px;" class="text-center">Attempt Quiz</h2>
+      <h2 style="margin-top: -10px;" class="text-center">Attempt Quiz</h2>
         <c:forEach var="tempQuestions" items="${questions_List}">
+        <div class="tableForm">
           
           
 
@@ -60,6 +63,7 @@
             <input
               class="form-control"
               type="text"
+              
               name="qStatement"
               readonly
               value="<c:out value='${tempQuestions.questionStatement}'/>"
@@ -100,26 +104,28 @@
           />
           <hr />
 
-          
 
-          <input
-            class="form-control form-control-sm"
-            type="text"
-            required
-            placeholder="Correct Answer (Option) E.g A"
-          />
-
-
-
+         <button style="margin-top:20px;" onclick="handleDelete('<c:out value='${tempQuestions.questionStatement}'/>')" type="submit" class='btn btn-danger'>Delete this Question</button>
 
           <hr />
           <hr />
-
+          </div>
           <c:set var="secCount" value="${secCount + 1}" scope="page"/>
-
+          
         </c:forEach>
-        <button type="submit" >Submit Quiz</button>
-      </form>
+
+          <br />
+          <div class="ui buttons" style="margin-left:440px;">
+            <a  href="Stats"  class="ui green button">Done </a>
+            <div class="or"></div>
+            <input type="button" class="ui teal button"  onclick="handleAddAnotherQuestion()" value="Add another Question"/>
+          </div>
+          <hgroup></hgroup>
+
+
+         <%-- <button style="margin-left:100px;" onclick="handleAddAnotherQuestion()" type="submit" class='btn btn-primary'>Add Another Question</button> --%>
+
+        
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -129,61 +135,34 @@
   <jsp:include page="footer.jsp"/>
 
   <script type="text/javascript">
-    function _handleSubmit() {
-      var input_fields = document.getElementsByTagName("input");
-      var h1_fields = document.getElementsByTagName("h1");
+    function handleAddAnotherQuestion() {
+      var quizId = <%= quizId%>;
+      window.location.href = "EditAddAnotherQuestion.jsp?qId=" + quizId;
 
-      var answers = [];
-      var correctAnswers = [];
-      for(let i = 0; i < input_fields.length ; i++) {
-        if( ((i+1)) % 6 == 0) {
-          var s = input_fields[i].value;
-          s.trim();
-          answers.push(s.toLowerCase());
-        }
-      } 
-      for(let i = 0; i < h1_fields.length; i++) {
-          var temp = h1_fields[i].innerText;
-          temp = temp.trim();
-          correctAnswers.push(temp.toLowerCase());  
-        }
-      var qId = "<%=quizId%>";
-      var marks = 0;
 
-      var counter;
-
-      if(correctAnswers.length > answers.length) {
-        counter = answers.length;
-      }
-      else {
-        counter = correctAnswers.length;
-      }
-
-    for(let i = 0; i < counter; i++){
-      if(answers[i] == correctAnswers[i]) {
-        marks++;
-      }
-    }
-    console.log(marks, counter, answers, correctAnswers, input_fields);
-      loadDoc(qId, marks);
-      return false;
     }
 
-    function loadDoc(qId, marks) {
-      console.count("here");
-      
-        var xmlhttp = new XMLHttpRequest();
+    function handleDelete(qName) {
+      // var qStatement = document.getElementsByTagName("input");
+
+      var quizId = <%= quizId%>;
+      // return false;
+
+      var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 // document.getElementById("txtHint").innerHTML = this.responseText;
               // alert("you have scored " + marks + " in this quiz");
-              window.location.href = "showResult.jsp";
+              // window.location.href = "EditQuiz?quizId" + quizId;
+              window.location.reload();
             }
         };
-        xmlhttp.open("POST", "AddQuizScore?q=" + qId + "&marks=" + marks, true);
-        xmlhttp.send();
-    }
+        xmlhttp.open("POST", "DeleteQuestion?q=" + qName + "&qId=" + quizId, true);
 
+        xmlhttp.send();
+      
+      
+    }
 
 
   </script>

@@ -30,13 +30,22 @@ public class InstructorRegister extends HttpServlet {
 
             int rs = st.executeUpdate(query);
 
-            if (rs > 0) {
-
-                session.setAttribute("isInstructor", true);
-                session.setAttribute("user", username);
-                res.sendRedirect("index.jsp");
-
+            query = "select instructorId from instructor where teacherName = '" + username + "'";
+            Statement statement = con.createStatement();
+            ResultSet resultSet;
+            resultSet = statement.executeQuery(query);
+            int insId = 0;
+            if (resultSet.next()) {
+                insId = resultSet.getInt("instructorId");
             }
+
+            session.setAttribute("instructorId", insId);
+
+            session.setAttribute("isInstructor", true);
+            session.setAttribute("loggedIn", true);
+
+            session.setAttribute("user", username);
+            res.sendRedirect("index.jsp");
 
         } catch (Exception e) {
             out.println(e);

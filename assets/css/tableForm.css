@@ -9,7 +9,7 @@
     }
 }
 
-.contact-clean form {
+.tableForm {
     max-width: 480px;
     width: 90%;
     margin: 0 auto;
@@ -59,6 +59,14 @@
     resize: vertical;
 }
 
+
+
+
+
+
+
+
+/* 
 .contact-clean form .btn {
     padding: 16px 32px;
     border: none;
@@ -80,7 +88,7 @@
 
 .contact-clean form .btn:active {
     transform: translateY(1px);
-}
+} */
 
 .contact-clean form .btn-primary {
     background-color: #055ada !important;

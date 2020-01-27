@@ -14,9 +14,9 @@
 <body>
     <jsp:include page="nav.jsp"/>
     <div class="contact-clean">
-            <h1>Hi There</h1>
+            <h1 class="display-4" style="margin-left:520px;">Hi There!</h1>
             <p class="text-center lead">This is a Full Stack Web App named Quizer, developed by Muhammad Eman Ejaz, 
-            using pure enriching core concpets of Java, JSP and JSTL.&nbsp;</p>
+            using core concpets of Java, JDBC, JSP and JSTL.&nbsp;</p>
     </div>
 </body>
 </html>

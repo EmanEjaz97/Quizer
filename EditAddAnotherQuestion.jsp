@@ -2,9 +2,6 @@
 
 
  <%  
-		boolean statementAdded = (boolean)session.getAttribute("quizNameAdded");
-		boolean quizUploaded = (boolean)session.getAttribute("quizUploaded");
-
      boolean isLoggedIn = (boolean) session.getAttribute("loggedIn");
      boolean isInstructor = (boolean) session.getAttribute("isInstructor");
 
@@ -13,6 +10,9 @@
             String redirectURL = "invalidUser.jsp";
             response.sendRedirect(redirectURL);
         }
+    String temp = request.getParameter("qId");
+    int quizId = Integer.parseInt(temp);
+
   
   %>
 
@@ -40,12 +40,13 @@
 
     <script type="text/javascript">
       function callAddAnotherQuestionServlet() {
-          document.forms[0].action = "AddQuestion";
+          document.forms[0].action = "AddQuestion?qId=" +qId ;
           document.forms[0].submit();
       }
 
       function callSubmitQuizServlet() {
-          document.forms[0].action = "SubmitQuiz";
+          var qId = <%=quizId%>
+          document.forms[0].action = "EditAddAnotherQuestion?qId=" +qId;
           document.forms[0].submit();
       }
     </script>
@@ -60,16 +61,6 @@
       <form method="post" style="margin-top: -10px;">
         <h2 style="margin-top: -30px;" class="text-center">Make Quiz</h2>
         <div class="form-group" style="margin-top: -25px;"> 
-        <c:if test="${not quizNameAdded}">
-            <input
-            class="form-control"
-            type="text"
-            name="qName"
-            required
-            placeholder="Quiz Name"
-          />
-        </c:if>
-        
           <hr/>
           <input
             class="form-control"
@@ -118,14 +109,12 @@
           type="text"
           name="correctAnswer"
           required
-          placeholder="Correct Answer (Option) E.g A"
+          placeholder="Correct Answer (Statement)"
         />
         <div class="form-group">
           <br />
           <div class="ui buttons">
             <input type="submit" onclick="callSubmitQuizServlet();"  class="ui green button"/>
-            <div class="or"></div>
-            <input type="submit" class="ui teal button"  onclick="callAddAnotherQuestionServlet();" value="Add another Question"/>
           </div>
           <hgroup></hgroup>
         </div>

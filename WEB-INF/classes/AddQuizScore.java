@@ -6,6 +6,21 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 
 public class AddQuizScore extends HttpServlet {
+    
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        PrintWriter out = res.getWriter();
+        HttpSession session = req.getSession();
+
+        boolean isLoggedIn = (boolean) session.getAttribute("loggedIn");
+
+        if (!isLoggedIn) {
+            String redirectURL = "invalidUser.jsp";
+            res.sendRedirect("invalidUser.jsp");
+        }
+
+    }
+
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
@@ -49,6 +64,10 @@ public class AddQuizScore extends HttpServlet {
             int rs2 = st2.executeUpdate(query);
             session.setAttribute("quizesList", null);
 
+            Statement st3 = con.createStatement();
+            String sqlString = "delete from attemptedquiz where studentId = " + studentId + " AND quizId = '" + quizId
+                    + "' AND marks = " + -1 + "";
+            st3.executeUpdate(sqlString);
         } catch (Exception e) {
             out.println(e);
 

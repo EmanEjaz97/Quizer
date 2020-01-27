@@ -14,10 +14,9 @@ public class QuizList extends HttpServlet {
         PrintWriter out = res.getWriter();
 
         HttpSession session = req.getSession();
+        boolean loggedIn = (boolean) session.getAttribute("loggedIn");
 
-        boolean isLoggedIn = (boolean) session.getAttribute("loggedIn");
-
-        if (!isLoggedIn) {
+        if (!loggedIn) {
             String redirectURL = "invalidUser.jsp";
             res.sendRedirect(redirectURL);
         }
@@ -70,6 +69,13 @@ public class QuizList extends HttpServlet {
                 Statement statement = con.createStatement();
                 ResultSet tempResult;
                 int sId = (int) session.getAttribute("studentId");
+
+                Statement statement2 = con.createStatement();
+                // ResultSet tempResult2;
+                int t = -1;
+                String sql = "update attemptedquiz set studentId = " + sId + " where marks = " + t + "";
+                statement2.executeUpdate(sql);
+
                 String tempQuery = "select marks, attempted from attemptedQuiz where quizId = " + quizId
                         + " AND studentId = " + sId + "";
                 tempResult = statement.executeQuery(tempQuery);
@@ -78,6 +84,8 @@ public class QuizList extends HttpServlet {
                     marks = tempResult.getInt(1);
                     attempted = tempResult.getString(2);
                 }
+
+                // out.println(attempted);
 
                 quizes.add(new QuizNInstructorName(quizName, instructorName, quizId, instructorId, attempted, marks));
                 // String temppSt = quizName + " uploaded by " + instructorName;

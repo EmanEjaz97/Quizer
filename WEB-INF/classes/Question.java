@@ -28,9 +28,12 @@ public class Question {
         return correctOpt;
     }
 
-
     public void setQuestionStatement(String questionStatement) {
         this.questionStatement = questionStatement;
+    }
+
+    public void setCorrectOpt(String corre) {
+        this.correctOpt = corre;
     }
 
     public String getOption1() {
@@ -56,8 +59,6 @@ public class Question {
     public void setOption3(String option3) {
         this.option3 = option3;
     }
-
-    
 
     public String getOption4() {
         return option4;

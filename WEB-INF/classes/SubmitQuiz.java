@@ -10,6 +10,21 @@ import javax.servlet.*;
 
 @SuppressWarnings("unchecked")
 public class SubmitQuiz extends HttpServlet {
+
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        PrintWriter out = res.getWriter();
+        HttpSession session = req.getSession();
+
+        boolean isLoggedIn = (boolean) session.getAttribute("loggedIn");
+
+        if (!isLoggedIn) {
+            String redirectURL = "invalidUser.jsp";
+            res.sendRedirect("invalidUser.jsp");
+        }
+
+    }
+
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         PrintWriter out = res.getWriter();
 
@@ -50,7 +65,7 @@ public class SubmitQuiz extends HttpServlet {
 
             boolean statementAdded = (boolean) session.getAttribute("quizNameAdded");
             String quizName;
-            
+
             if (!statementAdded) {
                 quizName = req.getParameter("qName");
             } else {
@@ -72,6 +87,12 @@ public class SubmitQuiz extends HttpServlet {
             if (rSet.next()) {
                 quizId = rSet.getInt(1);
             }
+
+            Statement statement = con.createStatement();
+            // ResultSet resultSet;
+
+            String sql = "insert into attemptedquiz (quizId) values (" + quizId + ")";
+            statement.executeUpdate(sql);
             // st4.close();
 
             out.println(questions.size());

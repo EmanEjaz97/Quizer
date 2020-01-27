@@ -6,7 +6,8 @@ import java.util.*;
 import javax.servlet.http.*;
 import javax.servlet.*;
 
-public class DeleteQuiz extends HttpServlet {
+public class DeleteQuestion extends HttpServlet {
+
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         PrintWriter out = res.getWriter();
@@ -35,11 +36,13 @@ public class DeleteQuiz extends HttpServlet {
 
         String username;
 
-        String id = req.getParameter("temp");
+        String id = req.getParameter("qId");
         int quizId = Integer.parseInt(id);
 
-        String quizName = req.getParameter("qName");
+        String questionStatement = req.getParameter("q");
 
+        out.println(quizId);
+        out.println(questionStatement);
         int insId = (int) session.getAttribute("instructorId");
 
         try {
@@ -52,13 +55,14 @@ public class DeleteQuiz extends HttpServlet {
 
             String query;
 
-            query = "select questionId from  questions where quizId = " + quizId + "";
+            query = "select questionId from questions where quizId = " + quizId + " AND questionName = '"
+                    + questionStatement + "'";
 
             ResultSet rs = st.executeQuery(query);
 
             int qId;
             while (rs.next()) {
-                qId = rs.getInt(1);
+                qId = rs.getInt("questionId");
 
                 query = "delete from options where questionId = " + qId + "";
 
@@ -66,15 +70,11 @@ public class DeleteQuiz extends HttpServlet {
                 int tempVal = tempSt.executeUpdate(query);
             }
 
-            query = "delete from questions where quizId = " + quizId + "";
+            query = "delete from questions where quizId = " + quizId + " AND questionName = '" + questionStatement
+                    + "'";
 
             Statement tempSt = con.createStatement();
             int tempVal = tempSt.executeUpdate(query);
-
-            query = "delete from quizes where insId = " + insId + " AND quizName = '" + quizName + "'";
-
-            Statement vague = con.createStatement();
-            vague.executeUpdate(query);
 
             // res.sendRedirect("EditQuiz?quizId=" + quizId);
         } catch (Exception e) {

@@ -12,7 +12,7 @@ public class Logout extends HttpServlet {
         session.invalidate();
 
         res.sendRedirect("index.jsp");
-        out.print("You are successfully logged out!");
+        // out.print("You are successfully logged out!");
 
         out.close();
     }
